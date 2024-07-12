@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
+import HeroUI from '../components/HeroUI.vue'
+import HomeCards from '../components/HomeCards.vue'
+import JobsList from '../components/JobsList.vue'
 </script>
 
 <template>
-  <main>
-    <TheWelcome />
-  </main>
+  <HeroUI />
+  <HomeCards />
+  <JobsList :showViewAllBtn="true" />
 </template>

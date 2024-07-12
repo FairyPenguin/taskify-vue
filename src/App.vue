@@ -1,58 +1,63 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-// import { RouterLink, RouterView } from 'vue-router'
+// import { ref, onMounted } from 'vue'
+import NavbarUI from './components/NavbarUI.vue'
+// import JobsList from './components/JobsList.vue'
+
+import { RouterLink, RouterView } from 'vue-router'
 // import HelloWorld from './components/HelloWorld.vue'
 
-interface todo {
-  userId: number
-  id: number
-  title: string
-  completed: boolean
-}
+// interface todo {
+//   userId: number
+//   id: number
+//   title: string
+//   completed: boolean
+// }
 
-const status = ref('active')
-const name = ref('mahmoud')
-const arrayOfTasks = ref(['1', '2', '3'])
-const url = ref('https://github.com/FairyPenguin')
-const todosArray = ref<todo[]>([])
+// const status = ref('active')
+// const name = ref('mahmoud')
+// const arrayOfTasks = ref(['1', '2', '3'])
+// const url = ref('https://github.com/FairyPenguin')
+// const todosArray = ref<todo[]>([])
 
-const newTask = ref('')
+// const newTask = ref('')
 
-function addNewTask() {
-  if (newTask.value.trim() !== '') {
-    // add new task to the array
-    arrayOfTasks.value.push(newTask.value)
-    // clear the input field
-    newTask.value = ''
-  }
-}
+// function addNewTask() {
+//   if (newTask.value.trim() !== '') {
+//     // add new task to the array
+//     arrayOfTasks.value.push(newTask.value)
+//     // clear the input field
+//     newTask.value = ''
+//   }
+// }
 
-function deleteTask(index: number) {
-  arrayOfTasks.value.splice(index, 1)
-}
+// function deleteTask(index: number) {
+//   arrayOfTasks.value.splice(index, 1)
+// }
 
-onMounted(async function fetchTodos() {
-  const response = await fetch('https://jsonplaceholder.typicode.com/todos')
-  const data = await response.json()
+// onMounted(async function fetchTodos() {
+//   const response = await fetch('https://jsonplaceholder.typicode.com/todos')
+//   const data = await response.json()
 
-  todosArray.value = data.map((todo: todo) => {
-    return todo.title
-  })
-})
+//   todosArray.value = data.map((todo: todo) => {
+//     return todo.title
+//   })
+// })
 
-function toggleStatus() {
-  if (status.value === 'active') {
-    status.value = 'pending'
-  } else if (status.value === 'pending') {
-    status.value = 'inactive'
-  } else {
-    status.value = 'active'
-  }
-}
+// function toggleStatus() {
+//   if (status.value === 'active') {
+//     status.value = 'pending'
+//   } else if (status.value === 'pending') {
+//     status.value = 'inactive'
+//   } else {
+//     status.value = 'active'
+//   }
+// }
 </script>
 
 <template>
-  <h1>Vue Taskify</h1>
+  <NavbarUI />
+  <RouterView />
+  <!-- <h1>Vue Taskify</h1>
   <br />
 
   <form @submit.prevent="addNewTask">
@@ -85,7 +90,7 @@ function toggleStatus() {
 
   <ul>
     <li :key="index" v-for="(todo, index) in todosArray">{{ todo }}</li>
-  </ul>
+  </ul> -->
 </template>
 
 <style scoped></style>
