@@ -3,7 +3,7 @@
 import NavbarUI from './components/NavbarUI.vue'
 // import JobsList from './components/JobsList.vue'
 
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from 'vue-router'
 // import HelloWorld from './components/HelloWorld.vue'
 
 // interface todo {

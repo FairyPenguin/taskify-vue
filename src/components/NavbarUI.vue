@@ -1,6 +1,37 @@
 <script setup lang="ts">
 import logo from '@/assets/logo.png'
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRoute } from 'vue-router'
+import RouteLink from './RouteLink.vue'
+import { computed } from 'vue'
+
+const route = useRoute()
+
+const currentPath = computed(() => {
+  const path = route.path
+  return path
+})
+
+console.log(currentPath)
+
+interface LinkType {
+  to: string
+  title: string
+}
+
+const links: LinkType[] = [
+  {
+    to: '/',
+    title: 'Home'
+  },
+  {
+    to: '/jobs',
+    title: 'Jobs'
+  },
+  {
+    to: '/jobs/add',
+    title: 'Add Job'
+  }
+]
 </script>
 
 <template>
@@ -15,21 +46,13 @@ import { RouterLink } from 'vue-router'
           </RouterLink>
           <div class="md:ml-auto">
             <div class="flex space-x-2">
-              <RouterLink
-                to="index.html"
-                class="text-white bg-green-900 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
-                >Home</RouterLink
-              >
-              <RouterLink
-                to="/jobs"
-                class="text-white hover:bg-green-900 hover:text-white rounded-md px-3 py-2"
-                >Jobs</RouterLink
-              >
-              <RouterLink
-                to="/add-job"
-                class="text-white hover:bg-green-900 hover:text-white rounded-md px-3 py-2"
-                >Add Job</RouterLink
-              >
+              <RouteLink
+                :key="index"
+                v-for="(link, index) in links"
+                :to="link.to"
+                :title="link.title"
+                :class="`text-white ${currentPath === link.to ? `bg-green-900` : `hover:bg-gray-900`}  hover:text-white rounded-md px-3 py-2`"
+              />
             </div>
           </div>
         </div>
