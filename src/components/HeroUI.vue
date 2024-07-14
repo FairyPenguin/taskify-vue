@@ -1,6 +1,5 @@
 <script setup lang="ts">
 /* __placeholder__ */
-import { defineProps } from 'vue'
 
 defineProps({
   title: {

@@ -1,11 +1,17 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import Jobs from '../jobs.json'
+import { ref, reactive, onMounted } from 'vue'
+// import Jobs from '../jobs.json'
 import JobItem from './JobItem.vue'
 import { RouterLink } from 'vue-router'
+import type { Job } from '../types/types'
 
-const jobs = ref(Jobs)
-console.log(jobs.value)
+// const jobs = ref(Jobs)
+// console.log(jobs.value)
+
+const state: {
+  jobs: Job[]
+  isLoading: boolean
+} = reactive({ jobs: [], isLoading: true })
 
 defineProps({
   limit: {
@@ -24,6 +30,21 @@ defineProps({
     required: true
   }
 })
+
+onMounted(async function fetchJobs() {
+  const url = 'src/jobs.json'
+  try {
+    const response = await fetch(url)
+
+    console.log(response)
+    const jobsData: Job[] = await response.json()
+    state.jobs = jobsData
+  } catch (error) {
+    console.error(error)
+  } finally {
+    state.isLoading = false
+  }
+})
 </script>
 
 <template>
@@ -33,7 +54,11 @@ defineProps({
       <h2 class="text-3xl font-bold text-green-500 mb-6 text-center">Browse Jobs</h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <!-- Job Item -->
-        <JobItem v-for="job in jobs.slice(0, limit || jobs.length)" :key="job.id" :job="job" />
+        <JobItem
+          v-for="job in state.jobs.slice(0, limit || state.jobs.length)"
+          :key="job.id"
+          :job="job"
+        />
       </div>
     </div>
   </section>
